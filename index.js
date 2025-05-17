@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);
 app.use('/bus', busRoutes);
 
-app.listen(port, (req, res) => {
-    console.log("The is listening on Port: " + port);
+db.sync({forced: true}).then(()=>{
+    app.listen(port, (req, res) => {
+        console.log("The is listening on Port: " + port);
+    })
+}).catch((error)=>{
+    console.log(error);
 })

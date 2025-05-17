@@ -1,44 +1,22 @@
-const mysql = require('mysql2');
+const {Sequelize} = require('sequelize');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Root@123',
-    database: 'BBS'
-})
+const sequelize = new Sequelize('bbs', 'root', 'Root@123', {
+    host: "localhost",
+    dialect: "mysql"
+});
 
-connection.connect((err) => {
-    if (err) {
-        console.log(err);
-        return;
-    }
+//.authenticate returns promise that's why we use AWAIT here
 
-    console.log("Connection has been created");
+(async() =>{
+    try{
+ 
+    await sequelize.authenticate();
+    console.log("Connection to the database has been created");
 
-    const creationQuery = [
-        `CREATE TABLE IF NOT EXISTS Users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(20),
-            email VARCHAR(20)
-        )`,
-        `CREATE TABLE IF NOT EXISTS Buses (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(20),
-            totalSeats INT,
-            availableSeats INT
-        )`
-];
-    
-    for (let i = 0; i < creationQuery.length; i++) {
-    connection.execute(creationQuery[i], (err, result) => {
-        if (err) {
-            console.error(`Error executing query ${i + 1}:`, err.message);
-        } else {
-            console.log(`Table ${i + 1} created successfully.`);
-        }
-    });
-}
+} catch (error){
 
-})
+    console.log(error);
 
-module.exports = connection;
+}})();
+
+module.exports = sequelize;
