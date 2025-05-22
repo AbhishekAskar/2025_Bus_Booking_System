@@ -15,16 +15,6 @@ const addBus = async (req, res) =>{
         console.log(error);
         res.status(500).send(`Unable to make an entry!`);
     }
-    // const insertQuery = 'INSERT INTO buses (name, totalSeats, availableSeats) VALUES (?,?,?)';
-    // db.execute(insertQuery, [name, totalSeats, availableSeats], (err)=>{
-    //     if(err){
-    //         console.log(err.message);
-    //         res.status(500).send(err.message);
-    //         return;
-    //     }
-    //     console.log("Values has been inserted ");
-    //     res.status(200).send(`Bus with name ${name} has been added.`)
-    // })
 }
 
 const getBuses = async (req, res) =>{
@@ -42,16 +32,6 @@ const getBuses = async (req, res) =>{
         console.error(error);
         res.status(500).send("Something went wrong!");
     }
-    
-    // const retrieveQuery = 'SELECT * from Buses WHERE availableSeats > ?';
-    // db.execute(retrieveQuery, [seats], (err, results)=>{
-    //     if(err){
-    //         console.log(err.message);
-    //         res.status(500).send("Something went wrong!");
-    //         return;
-    //     }
-    //     res.status(200).json(results)
-    // })
 }
 
 module.exports = {
